@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Website - Widget Test</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.2em;
+        }
+        
+        .content {
+            margin: 40px 0;
+            line-height: 1.8;
+            color: #555;
+        }
+        
+        .widget-section {
+            margin: 60px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 2px dashed #667eea;
+        }
+        
+        .widget-section h2 {
+            color: #667eea;
+            margin-bottom: 20px;
+        }
+        
+        .widget-container {
+            margin-top: 20px;
+            min-height: 200px;
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .instructions {
+            background: #e3f2fd;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+        
+        .instructions h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+        
+        .instructions code {
+            background: #fff;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d32f2f;
+        }
+        
+        .test-info {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .test-info strong {
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏢 Acme Corporation</h1>
+        <p class="subtitle">Your Trusted Business Partner</p>
+        
+        <div class="content">
+            <p>Welcome to our company website! This is a simulated company website to test the Remo AI widget integration.</p>
+            <p>Below, you'll see the embedded Remo AI widget that allows customers to join demo sessions directly from our website.</p>
+        </div>
+        
+        <div class="instructions">
+            <h3>📋 Configuration Instructions</h3>
+            <ol>
+                <li>Get your API key from the Remo AI dashboard (Rooms view → Copy embed code)</li>
+                <li>Update the widget script URL and API key in the script tag below (around line 145)</li>
+                <li>Replace <code>YOUR_PRODUCTION_URL</code> with your production frontend URL</li>
+                <li>Replace <code>YOUR_API_KEY</code> with your actual API key</li>
+                <li>The widget should appear below and allow customers to join directly</li>
+            </ol>
+        </div>
+        
+        <div class="test-info">
+            <strong>Production Setup:</strong><br>
+            • Widget Source: <code id="widget-url">YOUR_PRODUCTION_URL</code><br>
+            • Backend API: <code id="api-url">YOUR_BACKEND_URL</code><br>
+            • Update these URLs in the script tag below for production use
+        </div>
+        
+        <div class="widget-section">
+            <h2>🎥 Join Our Live Demo</h2>
+            <p>Click below to join a live demo session with our AI agent. No need to click suspicious links - everything happens right here!</p>
+            
+            <!-- Widget will be embedded here -->
+            <div class="widget-container" id="remo-widget-container">
+                <!-- Widget will be injected here by widget.js -->
+                <p style="text-align: center; color: #999; padding: 40px;">
+                    Widget loading... If you don't see a button, check the console for errors.
+                </p>
+            </div>
+            
+            <!-- Widget Script - Update YOUR_PRODUCTION_URL and YOUR_API_KEY for production -->
+            <script>
+                // Configuration: Update these values for production
+                const WIDGET_URL = 'YOUR_PRODUCTION_URL/widget.js'; // e.g., 'https://your-domain.com/widget.js'
+                const API_KEY = 'YOUR_API_KEY'; // e.g., 'remo_FDPUHmjIANCNrxh4cmMYDj3fiD7FRbbj'
+                
+                // Load widget script
+                const script = document.createElement('script');
+                script.src = WIDGET_URL;
+                script.setAttribute('data-api-key', API_KEY);
+                script.async = true;
+                document.head.appendChild(script);
+            </script>
+            
+            <div class="test-info" style="margin-top: 20px;">
+                <strong>💡 Usage Tips:</strong><br>
+                • The widget will show a "Start Demo" button<br>
+                • Clicking it opens a modal where customers enter their email/name<br>
+                • After clicking "Launch Demo", they'll join the room directly<br>
+                • Check browser console (F12) for any CORS or connection errors<br>
+                • Make sure your API key is correct (starts with "remo_")
+            </div>
+        </div>
+        
+        <div class="content" style="margin-top: 60px;">
+            <h2>How This Works</h2>
+            <p>In production, companies would embed this widget on their website. The widget:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>✅ Appears directly on the company's website (no external links)</li>
+                <li>✅ Builds trust - customers see it's part of the company site</li>
+                <li>✅ One-click entry - no copy/paste of links</li>
+                <li>✅ Seamless experience - WebRTC works cross-domain</li>
+            </ul>
+        </div>
+    </div>
+    
+    <script>
+        // Helper function to update the iframe src with invite token
+        // In real implementation, this would come from the widget initialization
+        function updateInviteToken(token) {
+            const iframe = document.getElementById('remo-widget-iframe');
+            if (iframe && token) {
+                // Update this URL to your production embed URL
+                const embedUrl = 'YOUR_PRODUCTION_URL/embed/room/' + token;
+                iframe.src = embedUrl;
+            }
+        }
+        
+        // For testing: You can manually update the token here
+        // updateInviteToken('your-actual-invite-token-here');
+    </script>
+</body>
+</html>
