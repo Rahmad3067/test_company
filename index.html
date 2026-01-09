@@ -123,9 +123,9 @@
         
         <div class="test-info">
             <strong>Production Setup:</strong><br>
-            • Widget Source: <code id="widget-url">YOUR_PRODUCTION_URL</code><br>
-            • Backend API: <code id="api-url">YOUR_BACKEND_URL</code><br>
-            • Update these URLs in the script tag below for production use
+            • Widget Source: <code id="widget-url">https://rahmad3067.github.io/test_company/widget.js</code><br>
+            • API Key: <code id="api-key">remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO</code><br>
+            • Status: <span id="widget-status">Loading...</span>
         </div>
         
         <div class="widget-section">
@@ -143,14 +143,79 @@
             <!-- Widget Script - Update YOUR_PRODUCTION_URL and YOUR_API_KEY for production -->
             <script>
                 // Configuration: Update these values for production
-                const WIDGET_URL = 'YOUR_PRODUCTION_URL/widget.js'; // e.g., 'https://your-domain.com/widget.js'
-                const API_KEY = 'YOUR_API_KEY'; // e.g., 'remo_FDPUHmjIANCNrxh4cmMYDj3fiD7FRbbj'
+                const WIDGET_URL = 'https://rahmad3067.github.io/test_company/widget.js';
+                const API_KEY = 'remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO';
+                
+                // Error handling for widget loading
+                window.addEventListener('error', function(e) {
+                    if (e.target && e.target.tagName === 'SCRIPT' && e.target.src.includes('widget.js')) {
+                        console.error('❌ Widget script failed to load:', e.target.src);
+                        const container = document.getElementById('remo-widget-container');
+                        if (container) {
+                            container.innerHTML = `
+                                <div style="text-align: center; padding: 40px; color: #d32f2f;">
+                                    <h3>⚠️ Widget Failed to Load</h3>
+                                    <p>Error loading widget from: <code>${e.target.src}</code></p>
+                                    <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                                        <strong>Common issues:</strong><br>
+                                        • Widget file doesn't exist at that URL<br>
+                                        • CORS policy blocking the request<br>
+                                        • Network connectivity issue<br>
+                                        • Check browser console (F12) for details
+                                    </p>
+                                </div>
+                            `;
+                        }
+                    }
+                }, true);
                 
                 // Load widget script
                 const script = document.createElement('script');
                 script.src = WIDGET_URL;
                 script.setAttribute('data-api-key', API_KEY);
                 script.async = true;
+                
+                script.onerror = function() {
+                    console.error('❌ Failed to load widget script:', WIDGET_URL);
+                    const container = document.getElementById('remo-widget-container');
+                    if (container) {
+                        container.innerHTML = `
+                            <div style="text-align: center; padding: 40px; color: #d32f2f;">
+                                <h3>⚠️ Widget Script Not Found</h3>
+                                <p>The widget script could not be loaded from:</p>
+                                <p><code>${WIDGET_URL}</code></p>
+                                <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
+                                    <strong>Please verify:</strong><br>
+                                    1. The widget.js file exists at that URL<br>
+                                    2. The URL is accessible (try opening it directly in browser)<br>
+                                    3. CORS headers are properly configured on the widget server<br>
+                                    4. Check browser console (F12) for detailed error messages
+                                </p>
+                            </div>
+                        `;
+                    }
+                };
+                
+                script.onload = function() {
+                    console.log('✅ Widget script loaded successfully');
+                    // Give widget a moment to initialize
+                    setTimeout(function() {
+                        const container = document.getElementById('remo-widget-container');
+                        if (container && container.querySelector('p') && container.textContent.includes('Widget loading')) {
+                            console.warn('⚠️ Widget script loaded but widget did not initialize');
+                            container.innerHTML += `
+                                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
+                                    <strong>Widget loaded but not initialized.</strong><br>
+                                    Check console for errors. Make sure:<br>
+                                    • API key is valid<br>
+                                    • Backend API is accessible<br>
+                                    • CORS is configured correctly
+                                </div>
+                            `;
+                        }
+                    }, 2000);
+                };
+                
                 document.head.appendChild(script);
             </script>
             
@@ -183,10 +248,27 @@
             const iframe = document.getElementById('remo-widget-iframe');
             if (iframe && token) {
                 // Update this URL to your production embed URL
-                const embedUrl = 'YOUR_PRODUCTION_URL/embed/room/' + token;
+                const embedUrl = 'https://rahmad3067.github.io/test_company/embed/room/' + token;
                 iframe.src = embedUrl;
             }
         }
+        
+        // Update status indicator
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const container = document.getElementById('remo-widget-container');
+                const statusEl = document.getElementById('widget-status');
+                if (statusEl) {
+                    if (container && container.querySelector('button')) {
+                        statusEl.textContent = '✅ Widget Loaded';
+                        statusEl.style.color = '#28a745';
+                    } else {
+                        statusEl.textContent = '⚠️ Widget Not Found';
+                        statusEl.style.color = '#ffc107';
+                    }
+                }
+            }, 3000);
+        });
         
         // For testing: You can manually update the token here
         // updateInviteToken('your-actual-invite-token-here');
