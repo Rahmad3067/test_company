@@ -123,8 +123,9 @@
         
         <div class="test-info">
             <strong>Production Setup:</strong><br>
-            • Widget Source: <code id="widget-url">https://rahmad3067.github.io/test_company/widget.js</code><br>
+            • Widget Source: <code id="widget-url">https://remoagentai.netlify.app/widget.js</code><br>
             • API Key: <code id="api-key">remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO</code><br>
+            • Backend API: <code id="backend-url">https://remoagentai.netlify.app</code><br>
             • Status: <span id="widget-status">Loading...</span>
         </div>
         
@@ -140,10 +141,10 @@
                 </p>
             </div>
             
-            <!-- Widget Script - Update YOUR_PRODUCTION_URL and YOUR_API_KEY for production -->
+            <!-- Widget Script - Load Remo AI Widget -->
             <script>
-                // Configuration: Update these values for production
-                const WIDGET_URL = 'https://rahmad3067.github.io/test_company/widget.js';
+                // Configuration: Widget URL and API Key
+                const WIDGET_URL = 'https://remoagentai.netlify.app/widget.js';
                 const API_KEY = 'remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO';
                 
                 // Error handling for widget loading
@@ -247,8 +248,9 @@
         function updateInviteToken(token) {
             const iframe = document.getElementById('remo-widget-iframe');
             if (iframe && token) {
-                // Update this URL to your production embed URL
-                const embedUrl = 'https://rahmad3067.github.io/test_company/embed/room/' + token;
+                // Widget opens in new tab, so this function may not be needed
+                // But keeping it for compatibility
+                const embedUrl = 'https://remoagentai.netlify.app/embed/widget?api_key=' + encodeURIComponent('remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO');
                 iframe.src = embedUrl;
             }
         }
