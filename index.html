@@ -111,22 +111,21 @@
         </div>
         
         <div class="instructions">
-            <h3>📋 Configuration Instructions</h3>
-            <ol>
-                <li>Get your API key from the Remo AI dashboard (Rooms view → Copy embed code)</li>
-                <li>Update the widget script URL and API key in the script tag below (around line 145)</li>
-                <li>Replace <code>YOUR_PRODUCTION_URL</code> with your production frontend URL</li>
-                <li>Replace <code>YOUR_API_KEY</code> with your actual API key</li>
-                <li>The widget should appear below and allow customers to join directly</li>
-            </ol>
+            <h3>📋 Configuration</h3>
+            <p>This page is configured for GitHub Pages deployment with:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Widget hosted on Netlify: <code>https://remoagentai.netlify.app/widget.js</code></li>
+                <li>Backend API on Railway: <code>https://remo-production.up.railway.app</code></li>
+                <li>API Key configured in the script tag below</li>
+            </ul>
         </div>
         
         <div class="test-info">
             <strong>Production Setup:</strong><br>
-            • Widget Source: <code id="widget-url">https://remoagentai.netlify.app/widget.js</code><br>
-            • API Key: <code id="api-key">remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO</code><br>
-            • Backend API: <code id="backend-url">https://remoagentai.netlify.app</code><br>
-            • Status: <span id="widget-status">Loading...</span>
+            • Widget Source: <code>https://remoagentai.netlify.app/widget.js</code><br>
+            • Backend API: <code>https://remo-production.up.railway.app</code><br>
+            • API Key: <code>remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO</code><br>
+            • Ready for GitHub Pages deployment
         </div>
         
         <div class="widget-section">
@@ -142,83 +141,10 @@
             </div>
             
             <!-- Widget Script - Load Remo AI Widget -->
-            <script>
-                // Configuration: Widget URL and API Key
-                const WIDGET_URL = 'https://remoagentai.netlify.app/widget.js';
-                const API_KEY = 'remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO';
-                
-                // Error handling for widget loading
-                window.addEventListener('error', function(e) {
-                    if (e.target && e.target.tagName === 'SCRIPT' && e.target.src.includes('widget.js')) {
-                        console.error('❌ Widget script failed to load:', e.target.src);
-                        const container = document.getElementById('remo-widget-container');
-                        if (container) {
-                            container.innerHTML = `
-                                <div style="text-align: center; padding: 40px; color: #d32f2f;">
-                                    <h3>⚠️ Widget Failed to Load</h3>
-                                    <p>Error loading widget from: <code>${e.target.src}</code></p>
-                                    <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
-                                        <strong>Common issues:</strong><br>
-                                        • Widget file doesn't exist at that URL<br>
-                                        • CORS policy blocking the request<br>
-                                        • Network connectivity issue<br>
-                                        • Check browser console (F12) for details
-                                    </p>
-                                </div>
-                            `;
-                        }
-                    }
-                }, true);
-                
-                // Load widget script
-                const script = document.createElement('script');
-                script.src = WIDGET_URL;
-                script.setAttribute('data-api-key', API_KEY);
-                script.async = true;
-                
-                script.onerror = function() {
-                    console.error('❌ Failed to load widget script:', WIDGET_URL);
-                    const container = document.getElementById('remo-widget-container');
-                    if (container) {
-                        container.innerHTML = `
-                            <div style="text-align: center; padding: 40px; color: #d32f2f;">
-                                <h3>⚠️ Widget Script Not Found</h3>
-                                <p>The widget script could not be loaded from:</p>
-                                <p><code>${WIDGET_URL}</code></p>
-                                <p style="margin-top: 20px; font-size: 0.9em; color: #666;">
-                                    <strong>Please verify:</strong><br>
-                                    1. The widget.js file exists at that URL<br>
-                                    2. The URL is accessible (try opening it directly in browser)<br>
-                                    3. CORS headers are properly configured on the widget server<br>
-                                    4. Check browser console (F12) for detailed error messages
-                                </p>
-                            </div>
-                        `;
-                    }
-                };
-                
-                script.onload = function() {
-                    console.log('✅ Widget script loaded successfully');
-                    // Give widget a moment to initialize
-                    setTimeout(function() {
-                        const container = document.getElementById('remo-widget-container');
-                        if (container && container.querySelector('p') && container.textContent.includes('Widget loading')) {
-                            console.warn('⚠️ Widget script loaded but widget did not initialize');
-                            container.innerHTML += `
-                                <div style="margin-top: 20px; padding: 15px; background: #fff3cd; border-radius: 8px; border-left: 4px solid #ffc107;">
-                                    <strong>Widget loaded but not initialized.</strong><br>
-                                    Check console for errors. Make sure:<br>
-                                    • API key is valid<br>
-                                    • Backend API is accessible<br>
-                                    • CORS is configured correctly
-                                </div>
-                            `;
-                        }
-                    }, 2000);
-                };
-                
-                document.head.appendChild(script);
-            </script>
+            <script src="https://remoagentai.netlify.app/widget.js" 
+                    data-api-key="remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO" 
+                    data-backend-url="https://remo-production.up.railway.app"
+                    async></script>
             
             <div class="test-info" style="margin-top: 20px;">
                 <strong>💡 Usage Tips:</strong><br>
@@ -226,7 +152,8 @@
                 • Clicking it opens a modal where customers enter their email/name<br>
                 • After clicking "Launch Demo", they'll join the room directly<br>
                 • Check browser console (F12) for any CORS or connection errors<br>
-                • Make sure your API key is correct (starts with "remo_")
+                • Make sure your API key is correct (starts with "remo_")<br>
+                • <strong>Make sure BACKEND_URL is set to your Railway URL!</strong>
             </div>
         </div>
         
@@ -260,6 +187,13 @@
             setTimeout(function() {
                 const container = document.getElementById('remo-widget-container');
                 const statusEl = document.getElementById('widget-status');
+                const backendUrlEl = document.getElementById('backend-url');
+                
+                // Update backend URL display
+                if (backendUrlEl && typeof BACKEND_URL !== 'undefined') {
+                    backendUrlEl.textContent = BACKEND_URL;
+                }
+                
                 if (statusEl) {
                     if (container && container.querySelector('button')) {
                         statusEl.textContent = '✅ Widget Loaded';

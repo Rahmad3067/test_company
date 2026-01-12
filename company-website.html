@@ -111,22 +111,21 @@
         </div>
         
         <div class="instructions">
-            <h3>📋 Testing Instructions</h3>
-            <ol>
-                <li>Make sure your backend is running on <code>http://localhost:8000</code></li>
-                <li>Make sure your frontend is running on <code>http://localhost:5173</code></li>
-                <li>Create a room in your Remo AI dashboard and copy the invite token</li>
-                <li>Get your API key from the Remo AI dashboard (Rooms view → Copy embed code)</li>
-                <li>Replace <code>YOUR_API_KEY</code> in the script tag below (around line 145) with your actual API key</li>
-                <li>The widget should appear below and allow customers to join directly</li>
-            </ol>
+            <h3>📋 Configuration</h3>
+            <p>This page is configured for GitHub Pages deployment with:</p>
+            <ul style="margin-left: 20px; margin-top: 10px;">
+                <li>Widget hosted on Netlify: <code>https://remoagentai.netlify.app/widget.js</code></li>
+                <li>Backend API on Railway: <code>https://remo-production.up.railway.app</code></li>
+                <li>API Key configured in the script tag below</li>
+            </ul>
         </div>
         
         <div class="test-info">
-            <strong>Current Test Setup:</strong><br>
-            • Widget Source: <code>http://localhost:5173</code><br>
-            • Backend API: <code>http://localhost:8000</code><br>
-            • This simulates a company website embedding your Remo AI widget
+            <strong>Production Setup:</strong><br>
+            • Widget Source: <code>https://remoagentai.netlify.app/widget.js</code><br>
+            • Backend API: <code>https://remo-production.up.railway.app</code><br>
+            • API Key: <code>remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO</code><br>
+            • Ready for GitHub Pages deployment
         </div>
         
         <div class="widget-section">
@@ -142,7 +141,10 @@
             </div>
             
             <!-- Widget Script - Replace YOUR_API_KEY with your actual API key from dashboard -->
-            <script src=" https://rahmad3067.github.io/test_company/widget.js" data-api-key="remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO" async></script>
+            <script src="https://remoagentai.netlify.app/widget.js" 
+                    data-api-key="remo_sCQTrFnHp83HaMN4fnHRqEIIilYtOXnO" 
+                    data-backend-url="https://remo-production.up.railway.app"
+                    async></script>
             
             <div class="test-info" style="margin-top: 20px;">
                 <strong>💡 Testing Tips:</strong><br>
@@ -167,17 +169,8 @@
     </div>
     
     <script>
-        // Helper function to update the iframe src with invite token
-        // In real implementation, this would come from the widget initialization
-        function updateInviteToken(token) {
-            const iframe = document.getElementById('remo-widget-iframe');
-            if (iframe && token) {
-                iframe.src = `http://localhost:5173/embed/room/${token}`;
-            }
-        }
-        
-        // For testing: You can manually update the token here
-        // updateInviteToken('your-actual-invite-token-here');
+        // Widget is loaded via script tag with data attributes
+        // No additional JavaScript needed - widget.js handles everything
     </script>
 </body>
 </html>
